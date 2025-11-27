@@ -1,0 +1,69 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #121212;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: "EuropaBold";
+  src: url("/assets/fonts/europa.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Regular";
+  src: url("/assets/fonts/metropolis.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Buttoner";
+  src: url("/assets/fonts/ok.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+a.button {
+  display: inline-block;
+  border-radius: 50px;
+  padding: 1.2em 3em;
+  font-size: 1em;
+  font-family: "Buttoner";
+  background-color: #353535;
+  cursor: pointer;
+  transition: transform 0.25s, background-color 0.25s, border-color 0.25s;
+  border: 1px solid #121212;
+  text-decoration: none;
+  margin-top: 2rem;
+}
+
+a.button:hover {
+  transform: scale(1.05);
+  background-color: #5a5a5a;
+}
+
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
