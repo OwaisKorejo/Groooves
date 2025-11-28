@@ -1,5 +1,6 @@
 {
   "name": "my-landing",
+  "homepage": "http://groooves.app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
