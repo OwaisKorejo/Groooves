@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <img src="./assets/images/logo_no_background.png" className="logo" />
+      <img src="./public/assets/images/logo_no_background.png" className="logo" />
       <h1>groooves</h1>
       <p>the music app.</p>
       <div className="card">
