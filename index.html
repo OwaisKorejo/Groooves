@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./assets/images/logo_no_background.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groooves</title>
+
+  <style>
+    :root {
+      font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      font-weight: 400;
+      color-scheme: light dark;
+      color: rgba(255, 255, 255, 0.87);
+      background-color: #121212;
+      font-smoothing: antialiased;
+    }
+
+    @font-face {
+      font-family: "EuropaBold";
+      src: url("assets/fonts/europa.otf") format("woff2");
+    }
+    @font-face {
+      font-family: "Regular";
+      src: url("assets/fonts/metropolis.otf") format("opentype");
+    }
+    @font-face {
+      font-family: "Buttoner";
+      src: url("assets/fonts/ok.otf") format("opentype");
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      place-items: center;
+      min-width: 320px;
+      min-height: 100vh;
+    }
+
+    #root {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .logo {
+      height: 144px;
+      transition: filter 300ms;
+	  padding-top: 144px;
+    }
+    .logo:hover {
+      filter: drop-shadow(0 0 32px #646cffaa);
+    }
+
+    h1 {
+      font-family: "EuropaBold";
+      font-size: 100px;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 80px; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 60px; }
+    }
+
+    p {
+      font-family: "Regular";
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .card {
+      padding: 32px;
+      margin-top: 20px;
+    }
+
+    a.button {
+	  display: inline-flex;
+	  align-items: center;
+	  justify-content: center;
+	  white-space: nowrap;
+	  border-radius: 50px;
+	  padding: 20px 50px;
+	  font-size: 16px;
+	  font-family: "Buttoner";
+	  background-color: #353535;
+	  border: 1px solid #121212;
+	  text-decoration: none;
+	  color: white;
+	  cursor: pointer;
+	  transition: transform 0.25s, background-color 0.25s;
+	}
+
+    a.button:hover {
+      transform: scale(1.05);
+      background-color: #5a5a5a;
+    }
+
+    .social-icons {
+      margin-top: 110px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .social-icons a {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 25px;
+      background-color: #464646;
+      color: #fff;
+      transition: transform 0.2s;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+
+    /* Light mode override */
+    @media (prefers-color-scheme: light) {
+      :root {
+        color: #213547;
+        background-color: #ffffff;
+      }
+      .button {
+        background-color: #f9f9f9;
+      }
+    }
+
+    /* SVG icons styling */
+    .icon {
+      width: 26px;
+      height: 26px;
+      fill: white;
+    }
+	.button svg.icon {
+  width: 26px;            
+  height: 26px;         
+  vertical-align: middle; 
+  display: inline-block;  
+  margin-right: 8px;      
+}
+
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <img src="./assets/images/logo_no_background.png" class="logo" alt="Logo" />
+
+    <h1>groooves</h1>
+    <p>the music app.</p>
+
+    <div class="card">
+      <a class="button">
+        <svg class="icon" style="margin-right: 8px;" viewBox="0 0 384 512">
+          <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.9-44.6-35.5-2.8-74 20.7-88.1 20.7-14.5 0-48.1-19.7-74.4-19.7C61.1 140.3 0 184.8 0 273.5c0 25.7 4.7 52.3 14 79.8 12.4 36.7 57.3 126.7 104.2 125.2 24.5-.6 41.7-17.3 73.5-17.3 31.3 0 47.2 17.3 74.4 17.3 47.3-.7 89.7-82 101.6-118.9-64.4-30-48.9-90.5-48.9-90.9zM255.3 91.1c26.5-31.4 24.1-60.1 23.3-70.1-23.3 1.3-50.3 15.8-65.9 33.8-17.1 19.7-27 43.5-24.9 69.2 26.1 2 49.9-11.3 67.5-32.9z"/>
+        </svg>
+        Download on iOS
+      </a>
+    </div>
+
+    <div class="social-icons">
+  <a href="https://www.instagram.com/grooves.app/" target="_blank" rel="noreferrer">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="https://www.tiktok.com/@grooovesapp" target="_blank" rel="noreferrer">
+    <i class="fa-brands fa-tiktok"></i>
+  </a>
+</div>
+
+
+  </div>
+</body>
+</html>
