@@ -14,19 +14,19 @@
 }
 @font-face {
   font-family: "EuropaBold";
-  src: url("/assets/fonts/europa.otf") format("opentype");
+  src: url("./assets/fonts/europa.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Regular";
-  src: url("/assets/fonts/metropolis.otf") format("opentype");
+  src: url("./assets/fonts/metropolis.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Buttoner";
-  src: url("/assets/fonts/ok.otf") format("opentype");
+  src: url("./assets/fonts/ok.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { FaInstagram, FaTiktok, FaApple } from "react-icons/fa";
 function App() {
@@ -8,7 +6,7 @@ function App() {
 
   return (
     <>
-      <img src="/assets/images/logo_no_background.png" className="logo" />
+      <img src="./assets/images/logo_no_background.png" className="logo" />
       <h1>groooves</h1>
       <p>the music app.</p>
       <div className="card">
