@@ -15,7 +15,6 @@
       align-items: center;
       overflow: hidden;
       font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-      color-scheme: light dark;
       color: rgba(255, 255, 255, 0.87);
       background-color: #121212;
       font-smoothing: antialiased;
@@ -93,6 +92,7 @@
       vertical-align: middle;
       display: inline-block;
       margin-right: 8px;
+      fill: white;
     }
     .social-icons {
       margin-top: 40px;
@@ -117,11 +117,16 @@
     }
     @media (prefers-color-scheme: light) {
       html, body {
-        color: #213547;
-        background-color: #ffffff;
+        color: rgba(255,255,255,0.87);
+        background-color: #121212;
       }
       .button {
-        background-color: #f9f9f9;
+        background-color: #353535;
+        color: white;
+      }
+      .social-icons a {
+        background-color: #464646;
+        color: white;
       }
     }
   </style>
@@ -141,10 +146,10 @@
     </div>
     <div class="social-icons">
       <a href="https://www.instagram.com/grooves.app/" target="_blank" rel="noreferrer">
-        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-instagram" style="color:white;"></i>
       </a>
       <a href="https://www.tiktok.com/@grooovesapp" target="_blank" rel="noreferrer">
-        <i class="fa-brands fa-tiktok"></i>
+        <i class="fa-brands fa-tiktok" style="color:white;"></i>
       </a>
     </div>
   </div>
