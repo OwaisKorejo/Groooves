@@ -1,1 +1,148 @@
-
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./assets/images/logo_no_background.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groooves</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+      color: rgba(255, 255, 255, 0.87);
+      background-color: #121212;
+      font-smoothing: antialiased;
+    }
+    @font-face {
+      font-family: "EuropaBold";
+      src: url("assets/fonts/europa.otf") format("woff2");
+    }
+    @font-face {
+      font-family: "Regular";
+      src: url("assets/fonts/metropolis.otf") format("opentype");
+    }
+    @font-face {
+      font-family: "Buttoner";
+      src: url("assets/fonts/ok.otf") format("opentype");
+    }
+    #root {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .logo {
+      height: 140px;
+      transition: filter 300ms;
+    }
+    .logo:hover {
+      filter: drop-shadow(0 0 32px #646cffaa);
+    }
+    h1 {
+      font-family: "EuropaBold";
+      font-size: 60px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 40px; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 30px; }
+      .logo { height: 100px; }
+    }
+    p {
+      font-family: "Regular";
+      font-size: 18px;
+      margin: 0;
+    }
+    .card {
+      padding: 32px 0 0 0;
+      margin-top: 20px;
+    }
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      border-radius: 50px;
+      padding: 20px 50px;
+      font-size: 16px;
+      font-family: "Buttoner";
+      background-color: #353535;
+      border: 1px solid #121212;
+      text-decoration: none;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.25s, background-color 0.25s;
+    }
+    a.button:hover {
+      transform: scale(1.05);
+      background-color: #5a5a5a;
+    }
+    .button svg.icon {
+      width: 26px;
+      height: 26px;
+      vertical-align: middle;
+      display: inline-block;
+      margin-right: 8px;
+      fill: white;
+    }
+    .social-icons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .social-icons a {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 25px;
+      background-color: #464646;
+      color: #fff;
+      transition: transform 0.2s;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+    @media (prefers-color-scheme: light) {
+      html, body {
+        color: rgba(255,255,255,0.87);
+        background-color: #121212;
+      }
+      .button {
+        background-color: #353535;
+        color: white;
+      }
+      .social-icons a {
+        background-color: #464646;
+        color: white;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <img src="./assets/images/logo_no_background.png" class="logo" alt="Logo" />
+    <h1>your account is now verified.</h1>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/grooves.app/" target="_blank" rel="noreferrer">
+        <i class="fa-brands fa-instagram" style="color:white;"></i>
+      </a>
+      <a href="https://www.tiktok.com/@grooovesapp" target="_blank" rel="noreferrer">
+        <i class="fa-brands fa-tiktok" style="color:white;"></i>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
