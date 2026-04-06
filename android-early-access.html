@@ -8,16 +8,15 @@
   <title>Android Early Access — Groooves</title>
   <style>
     html, body {
-      height: 100%;
+      min-height: 100%;
       margin: 0;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
       color: rgba(255, 255, 255, 0.87);
       background-color: #191919;
       font-smoothing: antialiased;
-      overflow: hidden;
       position: relative;
     }
     body::before,
@@ -65,27 +64,14 @@
       src: url("assets/fonts/ok.otf") format("opentype");
     }
     #root {
-      max-width: 560px;
+      max-width: 580px;
+      width: 100%;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 48px 24px 64px;
       text-align: center;
       box-sizing: border-box;
       position: relative;
       z-index: 1;
-    }
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: "Buttoner";
-      color: rgba(255,255,255,0.5);
-      text-decoration: none;
-      font-size: 14px;
-      margin-bottom: 32px;
-      transition: color 0.2s;
-    }
-    .back-link:hover {
-      color: rgba(255,255,255,0.85);
     }
     .logo {
       height: 80px;
@@ -95,52 +81,75 @@
       font-family: "EuropaBold";
       font-size: 42px;
       letter-spacing: 0.04em;
-      margin: 0 0 8px 0;
+      margin: 0 0 10px 0;
     }
     .subtitle {
       font-family: "Regular";
       font-size: 15px;
       color: rgba(255,255,255,0.55);
-      margin: 0 0 36px 0;
-      line-height: 1.5;
+      margin: 0 0 40px 0;
+      line-height: 1.6;
     }
-    .benefits {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 36px 0;
+    .steps {
       text-align: left;
-      display: inline-block;
-    }
-    .benefits li {
-      font-family: "Regular";
-      font-size: 15px;
-      color: rgba(255,255,255,0.8);
-      padding: 8px 0;
+      margin: 0 0 36px 0;
       display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .step {
+      display: flex;
+      gap: 16px;
       align-items: flex-start;
-      gap: 10px;
-      line-height: 1.45;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 18px 20px;
     }
-    .benefits li .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(167, 139, 250, 0.9);
+    .step-number {
+      font-family: "EuropaBold";
+      font-size: 22px;
+      letter-spacing: 0.03em;
+      color: rgba(167, 139, 250, 0.9);
       flex-shrink: 0;
-      margin-top: 6px;
+      line-height: 1.3;
+      min-width: 20px;
     }
-    .cta-section {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 28px 24px;
+    .step-content {
+      font-family: "Regular";
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .step-content strong {
+      color: rgba(255,255,255,0.92);
+      font-weight: 600;
+    }
+    .step-content a {
+      color: rgba(167, 139, 250, 0.9);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .step-content a:hover {
+      text-decoration: underline;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 8px 0 28px 0;
+    }
+    .discord-section {
+      background: rgba(88, 101, 242, 0.12);
+      border: 1px solid rgba(88, 101, 242, 0.3);
+      border-radius: 16px;
+      padding: 22px 24px;
       margin-bottom: 28px;
     }
-    .cta-section p {
+    .discord-section p {
       font-family: "Regular";
-      font-size: 15px;
+      font-size: 14px;
       color: rgba(255,255,255,0.65);
-      margin: 0 0 20px 0;
+      margin: 0 0 16px 0;
       line-height: 1.6;
     }
     a.button {
@@ -150,8 +159,8 @@
       gap: 10px;
       white-space: nowrap;
       border-radius: 50px;
-      padding: 18px 44px;
-      font-size: 16px;
+      padding: 16px 36px;
+      font-size: 15px;
       font-family: "Buttoner";
       background-color: #5865F2;
       border: none;
@@ -167,7 +176,7 @@
     .note {
       font-family: "Regular";
       font-size: 13px;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.3);
       margin-top: 20px;
     }
     @media (max-width: 480px) {
@@ -178,22 +187,33 @@
 </head>
 <body>
   <div id="root">
-    
-
     <a href="index.html"><img src="./assets/images/logo_no_background.png" class="logo" alt="Groooves Logo" /></a>
     <h1>Android Early Access</h1>
-    <p class="subtitle">Be among the first to use Groooves on Android.</p>
+    <p class="subtitle">Groooves is going through Google Play's closed testing period. Follow the steps below to get early access and help shape the app.</p>
 
-    <ul class="benefits">
-      <li><span class="dot"></span>Get the app before public release</li>
-      <li><span class="dot"></span>Shape the app used by thousands of people directly; we make updates every 2-4 days</li>
-      <li><span class="dot"></span>Your feedback goes straight to the founder and it will be considered</li>
-      <li><span class="dot"></span>Join a community of 20,000+ music lovers</li>
-      
-    </ul>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <strong>Join our Google Group</strong><br>
+          Sign in to your Google account, then join the group at <a href="https://groups.google.com/g/groooves-testers" target="_blank" rel="noreferrer">groups.google.com/g/groooves-testers</a>. If you see "You don't have permission", make sure you're signed in — click <strong>Sign in</strong> in the top right, then click <strong>Join Group</strong>.<br><br>
+          Make sure you're signed in with the <strong>same Google account you use on the Play Store</strong>.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <strong>Install from the Play Store</strong><br>
+          On your Android device, open this link: <a href="https://play.google.com/store/apps/details?id=com.owaiskorejo.Grooves" target="_blank" rel="noreferrer">play.google.com/store/apps/details?id=com.owaiskorejo.Grooves</a><br><br>
+          Make sure you're signed into Play Store with the <strong>same account</strong> you used in step 1. You should now be able to install the app.
+        </div>
+      </div>
+    </div>
 
-    <div class="cta-section">
-      <p>Join our Discord to become an early access tester. It only takes a minute. Once you're in, follow the instructions in the <strong style="color:rgba(255,255,255,0.8);">#android-early-access</strong> channel.</p>
+    <hr class="divider">
+
+    <div class="discord-section">
+      <p>Join our Discord to share feedback — we read everything and ship updates every 2–4 days. Not required, but highly appreciated.</p>
       <a class="button" href="https://discord.gg/vMYrgHQz" target="_blank" rel="noreferrer">
         <i class="fa-brands fa-discord"></i>
         Join Discord
