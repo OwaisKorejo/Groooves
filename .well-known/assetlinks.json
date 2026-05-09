@@ -1,0 +1,10 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {                                                   
+        "namespace": "android_app",
+        "package_name": "com.owaiskorejo.Grooves",                  
+        "sha256_cert_fingerprints": ["64:1D:34:73:B8:8D:6D:47:0C:14:8C:16:47:83:9F:65:97:FF:66:85:67:02:A8:43:89:58:64:15:04:45:7E:A4"]                                 
+      }                                                             
+    }                  
+  ]
