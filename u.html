@@ -1,0 +1,39 @@
+<!DOCTYPE html>                                           
+  <html lang="en">                                                 
+  <head>                                                          
+    <meta charset="utf-8" />                                       
+    <meta name="viewport" content="width=device-width,             
+  initial-scale=1" />                       
+    <title>Groooves</title>                                        
+    <meta property="og:title" content="Groooves" />          
+    <meta property="og:description" content="View this profile in  
+  Groooves" />                                                    
+    <meta property="og:type" content="profile" />                  
+    <style>                                                        
+      body { font-family: -apple-system, system-ui, sans-serif;
+  background: #191919; color: #fff; margin: 0; padding: 24px;      
+  display: flex; flex-direction: column; align-items: center;    
+  justify-content: center; min-height: 100vh; }                    
+      h1 { font-size: 24px; margin: 0 0 8px; }                     
+      p { color: #888; margin: 0 0 32px; }                       
+      a { display: inline-block; padding: 14px 28px; background:   
+  #bf8cff; color: #1a1a1a; border-radius: 999px; text-decoration:
+  none; font-weight: 600; margin: 8px; }                           
+      .secondary { background: #2a2a2a; color: #ccc; }             
+    </style>                                                       
+  </head>                                                          
+  <body>                                                           
+    <h1>@<span id="username">user</span></h1>                      
+    <p>View this profile in Groooves</p>                           
+    <a id="open" href="#">Open in App</a>                          
+    <a class="secondary"                                           
+  href="https://apps.apple.com/app/idYOURIOSAPPID">Get the App</a> 
+    <script>                                                       
+      var u =                                                      
+  decodeURIComponent(location.pathname.replace(/^\/u\//, ''));     
+      document.getElementById('username').textContent = u;         
+      document.getElementById('open').href =                       
+  'https://www.groooves.app/u/' + u;                               
+    </script>                                                      
+  </body>                                                          
+  </html>  
