@@ -64,14 +64,31 @@
       var hint = document.getElementById('hint');
       var banner = document.getElementById('banner');
 
-      // Show the fallback instructions the first time "Open in App" is tapped.
-      open.addEventListener('click', function (e) {
-        hint.style.display = 'block';
-        // In an in-app browser the universal link can't reach the app and
-        // would just load the web page, wiping these instructions off screen.
-        // Stay on this page so the guidance stays visible.
-        if (inApp) { e.preventDefault(); }
-      });
+      // Configure the "Open in App" action for the current environment.
+      if (inApp) {
+        // In-app browsers (Instagram, TikTok, ...) can't reach the app through a
+        // universal link, so a tap would just load the web page and wipe the
+        // guidance off screen. Keep the tap on this page and show the hint.
+        open.addEventListener('click', function (e) {
+          e.preventDefault();
+          hint.style.display = 'block';
+        });
+      } else {
+        // Normal browser (Chrome, Safari, ...). Open the universal link in a new
+        // tab so THIS page -- and its "didn't open?" guidance -- is never
+        // navigated away. If Groooves is installed the OS opens the app; if it
+        // isn't, the new tab loads the web profile. Either way the guidance
+        // stays put instead of flashing for an instant and vanishing.
+        open.target = '_blank';
+        open.rel = 'noopener';
+        hint.innerHTML =
+          'Nothing happened? You may not have Groooves installed yet &mdash; ' +
+          'tap <b>Get the App</b> below. (If it opened in a new tab, just ' +
+          'switch back to that tab.)';
+        open.addEventListener('click', function () {
+          hint.style.display = 'block';
+        });
+      }
 
       // If we're already inside an in-app browser, warn up front.
       if (inApp) {
