@@ -10,6 +10,19 @@
   <meta property="og:description" content="Tap to view this profile
    in Groooves" />                                                 
   <meta property="og:type" content="profile" />               
+    <script>
+      // iOS Safari shows its native "Open in the Groooves app" banner at the top
+      // of the page when this meta tag is present. Tapping it opens the app
+      // (deep-linked to this profile) or the App Store if it isn't installed.
+      // Injected here in <head> so Safari sees it while the page is still loading.
+      (function () {
+        var u = decodeURIComponent(location.pathname.replace(/^\/u\//, ''));
+        var m = document.createElement('meta');
+        m.name = 'apple-itunes-app';
+        m.content = 'app-id=6749868967, app-argument=https://www.groooves.app/u/' + u;
+        document.head.appendChild(m);
+      })();
+    </script>
     <style>                                                        
       body { font-family: -apple-system, system-ui, sans-serif;
   background: #191919; color: #fff; margin: 0; padding: 24px;      
@@ -64,28 +77,15 @@
       var hint = document.getElementById('hint');
       var banner = document.getElementById('banner');
 
-      // Configure the "Open in App" action for the current environment.
+      // In-app browsers (Instagram, TikTok, ...) can't reach the app through a
+      // universal link, so a tap would just load the web page and wipe the
+      // guidance off screen. Keep the tap on this page and show the hint.
+      // Normal browsers just follow the "Open in App" link -- and on iOS Safari
+      // the native "Open in the Groooves app" banner (added in <head>) sits at
+      // the top as the easy way in.
       if (inApp) {
-        // In-app browsers (Instagram, TikTok, ...) can't reach the app through a
-        // universal link, so a tap would just load the web page and wipe the
-        // guidance off screen. Keep the tap on this page and show the hint.
         open.addEventListener('click', function (e) {
           e.preventDefault();
-          hint.style.display = 'block';
-        });
-      } else {
-        // Normal browser (Chrome, Safari, ...). Open the universal link in a new
-        // tab so THIS page -- and its "didn't open?" guidance -- is never
-        // navigated away. If Groooves is installed the OS opens the app; if it
-        // isn't, the new tab loads the web profile. Either way the guidance
-        // stays put instead of flashing for an instant and vanishing.
-        open.target = '_blank';
-        open.rel = 'noopener';
-        hint.innerHTML =
-          'Nothing happened? You may not have Groooves installed yet &mdash; ' +
-          'tap <b>Get the App</b> below. (If it opened in a new tab, just ' +
-          'switch back to that tab.)';
-        open.addEventListener('click', function () {
           hint.style.display = 'block';
         });
       }
