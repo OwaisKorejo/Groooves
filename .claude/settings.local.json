@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx serve:*)"
+      "Bash(npx serve:*)",
+      "Bash(sips -g pixelWidth -g pixelHeight -g hasAlpha assets/images/logo_light.png)",
+      "Bash(sed -i '' 's/Groooves/Grooves/g' child-safety.html delete-account.html faq.html privacy-policy.html reset-password.html user-guide.html verification.html u.html)",
+      "Bash(sed -i '' 's/>groooves</>grooves</g' child-safety.html delete-account.html faq.html privacy-policy.html reset-password.html user-guide.html verification.html u.html)",
+      "Bash(sed -i '' 's#www\\\\.groooves\\\\.app#www.joingrooves.app#g' u.html)",
+      "Bash(python3 -)"
     ]
   }
 }

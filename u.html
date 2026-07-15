@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width,             
   initial-scale=1" />                       
       
-    <title>A Groooves profile</title>                                
-  <meta property="og:title" content="Groooves Profile" />        
+    <title>A Grooves profile</title>                                
+  <meta property="og:title" content="Grooves Profile" />        
   <meta property="og:description" content="Tap to view this profile
-   in Groooves" />                                                 
+   in Grooves" />                                                 
   <meta property="og:type" content="profile" />               
     <script>
-      // iOS Safari shows its native "Open in the Groooves app" banner at the top
+      // iOS Safari shows its native "Open in the Grooves app" banner at the top
       // of the page when this meta tag is present. Tapping it opens the app
       // (deep-linked to this profile) or the App Store if it isn't installed.
       // Injected here in <head> so Safari sees it while the page is still loading.
@@ -19,7 +19,7 @@
         var u = decodeURIComponent(location.pathname.replace(/^\/u\//, ''));
         var m = document.createElement('meta');
         m.name = 'apple-itunes-app';
-        m.content = 'app-id=6749868967, app-argument=https://www.groooves.app/u/' + u;
+        m.content = 'app-id=6749868967, app-argument=https://www.joingrooves.app/u/' + u;
         document.head.appendChild(m);
       })();
     </script>
@@ -46,7 +46,7 @@
   <body>                                                           
     <div class="banner" id="banner"></div>
     <h1>@<span id="username">user</span></h1>                      
-    <p>View this profile in Groooves</p>                           
+    <p>View this profile in Grooves</p>                           
     <a id="open" href="#">Open in App</a>                          
     <a class="secondary"                                           
   href="https://apps.apple.com/us/app/groooves/id6749868967">Get the App</a>
@@ -59,7 +59,7 @@
   decodeURIComponent(location.pathname.replace(/^\/u\//, ''));     
       document.getElementById('username').textContent = u;         
       document.getElementById('open').href =                       
-  'https://www.groooves.app/u/' + u;
+  'https://www.joingrooves.app/u/' + u;
 
       // In-app browsers (Instagram, TikTok, Facebook, etc.) block universal
       // links, so the app won't open from here. Detect them and guide the
@@ -81,7 +81,7 @@
       // universal link, so a tap would just load the web page and wipe the
       // guidance off screen. Keep the tap on this page and show the hint.
       // Normal browsers just follow the "Open in App" link -- and on iOS Safari
-      // the native "Open in the Groooves app" banner (added in <head>) sits at
+      // the native "Open in the Grooves app" banner (added in <head>) sits at
       // the top as the easy way in.
       if (inApp) {
         open.addEventListener('click', function (e) {
@@ -93,7 +93,7 @@
       // If we're already inside an in-app browser, warn up front.
       if (inApp) {
         banner.innerHTML = "You're viewing this inside another app. " +
-          'To open Groooves, first open this page in your browser &mdash; ' +
+          'To open Grooves, first open this page in your browser &mdash; ' +
           'use this app\'s menu (e.g. <b>"Open in browser"</b> or the ' +
           '<b>&#8226;&#8226;&#8226;</b> / share icon), then tap ' +
           '<b>Open in App</b>.';
