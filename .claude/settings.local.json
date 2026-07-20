@@ -6,7 +6,8 @@
       "Bash(sed -i '' 's/Groooves/Grooves/g' child-safety.html delete-account.html faq.html privacy-policy.html reset-password.html user-guide.html verification.html u.html)",
       "Bash(sed -i '' 's/>groooves</>grooves</g' child-safety.html delete-account.html faq.html privacy-policy.html reset-password.html user-guide.html verification.html u.html)",
       "Bash(sed -i '' 's#www\\\\.groooves\\\\.app#www.joingrooves.app#g' u.html)",
-      "Bash(python3 -)"
+      "Bash(python3 -)",
+      "Bash(grep -rn -iE \"mailto:|[a-z0-9._%+-]+@[a-z0-9.-]+\\\\.[a-z]{2,}\" /Users/owaiskorejo/Groooves --include=\"*.html\")"
     ]
   }
 }
