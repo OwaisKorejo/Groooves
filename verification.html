@@ -2,189 +2,536 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="./assets/images/icon.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Verify your email | Grooves</title>
+  <meta name="theme-color" content="#171021" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/png" href="./assets/images/icon.png" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <title>Email verification | Grooves</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: auto;
-      font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-      color: rgba(255, 255, 255, 0.87);
-      background-color: #121212;
-      font-smoothing: antialiased;
-    }
     @font-face {
-      font-family: "EuropaBold";
-      src: url("assets/fonts/europa.otf") format("woff2");
+      font-family: "MontHeavy";
+      src: url("./assets/fonts/montheavy.ttf") format("truetype");
+      font-display: swap;
     }
+
     @font-face {
-      font-family: "Regular";
-      src: url("assets/fonts/metropolis.otf") format("opentype");
+      font-family: "Metropolis";
+      src: url("./assets/fonts/metropolis.otf") format("opentype");
+      font-display: swap;
     }
-    @font-face {
-      font-family: "Buttoner";
-      src: url("assets/fonts/ok.otf") format("opentype");
+
+    :root {
+      --cream: #f3eadc;
+      --cream-soft: rgba(243, 234, 220, 0.72);
+      --cream-muted: rgba(243, 234, 220, 0.48);
+      --card: rgba(20, 13, 29, 0.72);
+      --card-border: rgba(255, 255, 255, 0.16);
+      --success: #93f0bd;
+      --error: #ff9ab1;
+      --neutral: #e7c7ff;
     }
-    #root {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 1rem;
-      text-align: center;
+
+    * {
       box-sizing: border-box;
     }
-    .logo {
-      height: 140px;
-      transition: filter 300ms;
+
+    html {
+      min-height: 100%;
+      background: #171021;
     }
-    .logo:hover {
-      filter: drop-shadow(0 0 32px #646cffaa);
-    }
-    h1 {
-      font-family: "EuropaBold";
-      font-size: 60px;
-      line-height: 1.08;
-      margin: 20px 0 16px;
-    }
-    @media (max-width: 768px) {
-      h1 { font-size: 40px; }
-    }
-    @media (max-width: 480px) {
-      h1 { font-size: 30px; }
-      .logo { height: 100px; }
-    }
-    p {
-      font-family: "Regular";
-      font-size: 18px;
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
       margin: 0;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      color: var(--cream);
+      background: #171021;
+      font-family: "Metropolis", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
-    .message {
-      max-width: 600px;
+
+    body::before,
+    body::after {
+      position: fixed;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+    }
+
+    body::before {
+      z-index: 0;
+      background:
+        url("./assets/images/verification-background.jpeg")
+        center / cover no-repeat;
+      transform: scale(1.04);
+    }
+
+    body::after {
+      z-index: 0;
+      background:
+        radial-gradient(circle at 50% 5%, rgba(255, 255, 255, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(12, 7, 18, 0.24), rgba(12, 7, 18, 0.7));
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 680px);
+    }
+
+    .verification-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(30px, 7vw, 58px);
+      border: 1px solid var(--card-border);
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(36, 24, 48, 0.84), var(--card));
+      box-shadow:
+        0 30px 90px rgba(7, 3, 12, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      text-align: center;
+      -webkit-backdrop-filter: blur(22px) saturate(125%);
+      backdrop-filter: blur(22px) saturate(125%);
+    }
+
+    .verification-card::before {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      width: 320px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(236, 87, 255, 0.2);
+      content: "";
+      filter: blur(62px);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .brand {
+      position: relative;
+      margin-bottom: clamp(26px, 5vw, 40px);
+    }
+
+    .logo {
+      display: block;
+      width: min(230px, 62vw);
+      height: auto;
       margin: 0 auto;
-      color: rgba(255, 255, 255, 0.72);
-      line-height: 1.6;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.3));
     }
+
+    .status-mark {
+      width: 66px;
+      height: 66px;
+      margin: 0 auto 20px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: var(--neutral);
+      background: rgba(231, 199, 255, 0.12);
+      box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      font-family: "MontHeavy", system-ui, sans-serif;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    [data-state="success"] .status-mark {
+      color: var(--success);
+      background: rgba(147, 240, 189, 0.12);
+      box-shadow: 0 0 34px rgba(147, 240, 189, 0.16);
+    }
+
+    [data-state="error"] .status-mark {
+      color: var(--error);
+      background: rgba(255, 154, 177, 0.12);
+      box-shadow: 0 0 34px rgba(255, 154, 177, 0.14);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--cream-muted);
+      font-family: "MontHeavy", system-ui, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 590px;
+      margin: 0 auto 18px;
+      color: var(--cream);
+      font-family: "MontHeavy", system-ui, sans-serif;
+      font-size: clamp(40px, 8vw, 68px);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    .message {
+      max-width: 540px;
+      margin: 0 auto;
+      color: var(--cream-soft);
+      font-size: clamp(15px, 2.6vw, 18px);
+      line-height: 1.65;
+    }
+
     .status-code {
-      margin-top: 14px;
-      color: rgba(255, 255, 255, 0.48);
-      font-size: 14px;
+      display: inline-flex;
+      margin: 20px auto 0;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      color: var(--cream-muted);
+      background: rgba(0, 0, 0, 0.16);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
     }
-    .social-icons {
-      margin-top: 40px;
+
+    .status-code[hidden] {
+      display: none;
+    }
+
+    .next-step {
+      max-width: 520px;
+      margin: 30px auto 0;
+      padding: 16px 18px;
       display: flex;
-      justify-content: center;
-      gap: 16px;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      color: var(--cream-soft);
+      background: rgba(7, 4, 12, 0.18);
+      text-align: left;
     }
-    .social-icons a {
-      width: 50px;
-      height: 50px;
+
+    .step-dot {
+      flex: 0 0 auto;
+      width: 9px;
+      height: 9px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .next-step p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .footer {
+      margin-top: 32px;
+      padding-top: 26px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      border-radius: 25px;
-      background-color: #464646;
-      color: #fff;
-      transition: transform 0.2s;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-copy {
+      margin: 0;
+      color: var(--cream-muted);
+      font-size: 12px;
+      text-align: left;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-icons a {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      color: var(--cream);
+      background: rgba(255, 255, 255, 0.08);
       text-decoration: none;
+      transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease;
     }
-    .social-icons a:hover {
-      transform: scale(1.1);
+
+    .social-icons a:hover,
+    .social-icons a:focus-visible {
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-2px);
     }
-    @media (prefers-color-scheme: light) {
-      html, body {
-        color: rgba(255,255,255,0.87);
-        background-color: #121212;
+
+    .noscript-note {
+      margin: 18px auto 0;
+      color: var(--error);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 14px;
       }
+
+      .verification-card {
+        border-radius: 26px;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+
+      .footer-copy {
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
       .social-icons a {
-        background-color: #464646;
-        color: white;
+        transition: none;
       }
     }
   </style>
 </head>
 <body>
-  <div id="root">
-    <img src="./assets/images/logo_no_background.png" class="logo" alt="Grooves" />
-    <div id="verification-status" aria-live="polite">
-      <h1 id="status-title">checking your verification...</h1>
+  <main>
+    <section
+      id="verification-card"
+      class="verification-card"
+      data-state="neutral"
+      aria-live="polite"
+    >
+      <header class="brand">
+        <img
+          src="./assets/images/logo_no_background.png"
+          class="logo"
+          alt="Grooves"
+        />
+      </header>
+
+      <div class="status-mark" aria-hidden="true">
+        <span id="status-symbol">!</span>
+      </div>
+      <p id="status-label" class="eyebrow">Verification incomplete</p>
+      <h1 id="status-title">we couldn't confirm your email.</h1>
       <p id="status-message" class="message">
-        Please wait while we check the result from your confirmation link.
+        Open the latest verification email and tap its confirmation button.
       </p>
       <p id="status-code" class="status-code" hidden></p>
-    </div>
-    <div class="social-icons">
-      <a href="https://www.instagram.com/grooves.app/" target="_blank" rel="noreferrer" aria-label="Grooves on Instagram">
-        <i class="fa-brands fa-instagram" style="color:white;"></i>
-      </a>
-      <a href="https://www.tiktok.com/@grooovesapp" target="_blank" rel="noreferrer" aria-label="Grooves on TikTok">
-        <i class="fa-brands fa-tiktok" style="color:white;"></i>
-      </a>
-    </div>
-  </div>
+
+      <div class="next-step">
+        <span class="step-dot" aria-hidden="true"></span>
+        <p id="next-step-message">
+          If you already tried the link, return to the Grooves app and request
+          a new verification email.
+        </p>
+      </div>
+
+      <noscript>
+        <p class="noscript-note">
+          This browser could not read the verification result. Open the link
+          again in Safari or Chrome.
+        </p>
+      </noscript>
+
+      <footer class="footer">
+        <p class="footer-copy">Grooves · your music, remembered.</p>
+        <div class="social-icons">
+          <a
+            href="https://www.instagram.com/joingrooves/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Grooves on Instagram"
+          >
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@grooovesapp"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Grooves on TikTok"
+          >
+            <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+          </a>
+        </div>
+      </footer>
+    </section>
+  </main>
+
   <script>
-    (() => {
-      const hashParams = new URLSearchParams(window.location.hash.slice(1));
-      const queryParams = new URLSearchParams(window.location.search);
-      const getParam = (name) =>
-        hashParams.get(name) || queryParams.get(name);
+    (function () {
+      function decode(value) {
+        try {
+          return decodeURIComponent(String(value || "").replace(/\+/g, " "));
+        } catch (error) {
+          return String(value || "");
+        }
+      }
 
-      const title = document.getElementById("status-title");
-      const message = document.getElementById("status-message");
-      const statusCode = document.getElementById("status-code");
+      function parseParams(source) {
+        var params = {};
+        var value = String(source || "").replace(/^[?#]/, "");
+        var pairs;
+        var index;
+        var separator;
+        var key;
 
-      const error = getParam("error");
-      const errorCode = getParam("error_code");
-      const errorDescription = getParam("error_description");
-      const verificationType = getParam("type");
-      const hasImplicitSession =
-        hashParams.has("access_token") && hashParams.has("refresh_token");
-      const hasPkceCode = queryParams.has("code");
-      const verified =
-        !error &&
-        !errorCode &&
-        ((verificationType === "signup" && hasImplicitSession) || hasPkceCode);
+        if (!value) return params;
+
+        pairs = value.split("&");
+        for (index = 0; index < pairs.length; index += 1) {
+          if (!pairs[index]) continue;
+          separator = pairs[index].indexOf("=");
+          if (separator === -1) {
+            key = decode(pairs[index]);
+            params[key] = "";
+          } else {
+            key = decode(pairs[index].slice(0, separator));
+            params[key] = decode(pairs[index].slice(separator + 1));
+          }
+        }
+
+        return params;
+      }
+
+      function merge(target, source) {
+        var key;
+        for (key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+        return target;
+      }
+
+      var queryParams = parseParams(window.location.search);
+      var hashParams = parseParams(window.location.hash);
+      var params = merge(queryParams, hashParams);
+      var card = document.getElementById("verification-card");
+      var symbol = document.getElementById("status-symbol");
+      var label = document.getElementById("status-label");
+      var title = document.getElementById("status-title");
+      var message = document.getElementById("status-message");
+      var statusCode = document.getElementById("status-code");
+      var nextStep = document.getElementById("next-step-message");
+      var errorCode = params.error_code || "";
+      var hasError = Boolean(params.error || errorCode);
+      var hasImplicitSession = Boolean(
+        hashParams.access_token && hashParams.refresh_token
+      );
+      var hasPkceCode = Boolean(queryParams.code);
+      var verified = Boolean(
+        !hasError &&
+        (
+          (params.type === "signup" && hasImplicitSession) ||
+          hasPkceCode
+        )
+      );
+
+      function render(
+        state,
+        symbolText,
+        labelText,
+        titleText,
+        messageText,
+        nextStepText
+      ) {
+        card.setAttribute("data-state", state);
+        symbol.textContent = symbolText;
+        label.textContent = labelText;
+        title.textContent = titleText;
+        message.textContent = messageText;
+        nextStep.textContent = nextStepText;
+      }
 
       if (verified) {
-        title.textContent = "your account is now verified.";
-        message.textContent =
-          "You can return to the Grooves app and log in.";
-      } else if (error || errorCode) {
+        render(
+          "success",
+          "✓",
+          "Email verified",
+          "your account is ready.",
+          "Your email has been confirmed successfully.",
+          "Return to the Grooves app and log in to continue."
+        );
+        document.title = "Email verified | Grooves";
+      } else if (hasError) {
+        card.setAttribute("data-state", "error");
+
         if (errorCode === "otp_expired") {
-          title.textContent = "this verification link isn't valid anymore.";
-          message.textContent =
-            "It may have expired, already been used, or been replaced by a newer email. Return to the Grooves app and request a new verification email.";
+          render(
+            "error",
+            "×",
+            "Link no longer valid",
+            "this link has expired.",
+            "The link may have expired, already been used, or been replaced by a newer verification email.",
+            "Return to the Grooves app, request a new email, and use the link in the newest message."
+          );
         } else if (errorCode === "over_request_rate_limit") {
-          title.textContent = "too many verification attempts.";
-          message.textContent =
-            "Wait a few minutes, then open the link in your latest verification email again.";
+          render(
+            "error",
+            "!",
+            "Please wait",
+            "too many attempts.",
+            "Your network has made too many verification attempts in a short period.",
+            "Wait a few minutes, then open the link in your latest verification email again."
+          );
         } else {
-          title.textContent = "we couldn't verify your email.";
-          message.textContent =
-            errorDescription ||
-            "Return to the Grooves app and request a new verification email.";
+          render(
+            "error",
+            "×",
+            "Verification failed",
+            "we couldn't verify your email.",
+            params.error_description ||
+              "The verification request could not be completed.",
+            "Return to the Grooves app and request a new verification email."
+          );
         }
 
         if (errorCode) {
-          statusCode.textContent = `Error: ${errorCode}`;
-          statusCode.hidden = false;
+          statusCode.textContent = "Error: " + errorCode;
+          statusCode.removeAttribute("hidden");
         }
-      } else {
-        title.textContent = "we couldn't confirm your email.";
-        message.textContent =
-          "Open the latest verification email and tap its confirmation button. If that still doesn't work, request a new email from the Grooves app.";
+        document.title = "Verification failed | Grooves";
       }
 
-      // Successful redirects contain session credentials in the fragment.
-      // Remove all Auth parameters from browser history after reading them.
-      if (window.location.hash || window.location.search) {
-        window.history.replaceState(null, document.title, window.location.pathname);
+      // Supabase can put session credentials in the URL fragment. Once the
+      // result is rendered, remove all Auth parameters from browser history.
+      if (
+        (window.location.hash || window.location.search) &&
+        window.history &&
+        window.history.replaceState
+      ) {
+        try {
+          window.history.replaceState(
+            null,
+            document.title,
+            window.location.pathname
+          );
+        } catch (error) {
+          // The result is already visible; failing to clean the URL should
+          // never leave the page in a loading state.
+        }
       }
-    })();
+    }());
   </script>
 </body>
 </html>

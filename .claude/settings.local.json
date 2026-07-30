@@ -7,7 +7,17 @@
       "Bash(sed -i '' 's/>groooves</>grooves</g' child-safety.html delete-account.html faq.html privacy-policy.html reset-password.html user-guide.html verification.html u.html)",
       "Bash(sed -i '' 's#www\\\\.groooves\\\\.app#www.joingrooves.app#g' u.html)",
       "Bash(python3 -)",
-      "Bash(grep -rn -iE \"mailto:|[a-z0-9._%+-]+@[a-z0-9.-]+\\\\.[a-z]{2,}\" /Users/owaiskorejo/Groooves --include=\"*.html\")"
+      "Bash(grep -rn -iE \"mailto:|[a-z0-9._%+-]+@[a-z0-9.-]+\\\\.[a-z]{2,}\" /Users/owaiskorejo/Groooves --include=\"*.html\")",
+      "Bash(grep -rn *)",
+      "Bash(GIT_EDITOR=true git rebase --continue)",
+      "Bash(git --version)",
+      "Bash(git stash *)",
+      "Bash(git rev-list *)",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git fetch *)"
     ]
   }
 }
