@@ -223,10 +223,13 @@
       var errorCodeElement = document.getElementById("error-code");
       var errorCode = params.error_code || "";
       var hasError = Boolean(params.error || errorCode);
+      var rawHash = String(window.location.hash || "");
       var verified = !hasError && Boolean(
-        params.access_token || query.code || query.verified === "true"
+        rawHash.indexOf("access_token=") !== -1 ||
+        params.access_token ||
+        query.code ||
+        query.verified === "true"
       );
-      var resultUrl = window.location.pathname;
 
       function render(state, labelText, titleText, messageText, nextStepText) {
         page.setAttribute("data-state", state);
@@ -245,7 +248,6 @@
           "Return to the Grooves app and log in."
         );
         document.title = "Email verified | Grooves";
-        resultUrl += "?verified=true";
       } else if (hasError) {
         if (errorCode === "otp_expired") {
           render(
@@ -278,22 +280,6 @@
           errorCodeElement.removeAttribute("hidden");
         }
         document.title = "Verification failed | Grooves";
-        resultUrl += "?error=access_denied";
-        if (errorCode) {
-          resultUrl += "&error_code=" + encodeURIComponent(errorCode);
-        }
-      }
-
-      if (
-        (window.location.hash || window.location.search) &&
-        window.history &&
-        window.history.replaceState
-      ) {
-        try {
-          window.history.replaceState(null, document.title, resultUrl);
-        } catch (error) {
-          // The result is already visible, so URL cleanup is non-essential.
-        }
       }
 
       // Browsers can treat another verification URL opened in the same tab as
