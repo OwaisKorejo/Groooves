@@ -95,10 +95,20 @@
 
     .instagram {
       display: inline-block;
-      margin-top: 34px;
+      margin-top: 28px;
       color: rgba(243, 234, 220, 0.62);
       font-size: 13px;
       text-decoration: none;
+    }
+
+    .support {
+      margin: 28px 0 0;
+      color: rgba(243, 234, 220, 0.62);
+      font-size: 13px;
+    }
+
+    .support a {
+      color: inherit;
     }
 
     .instagram:hover,
@@ -142,6 +152,11 @@
     <noscript>
       <p>Open this link again in Safari or Chrome.</p>
     </noscript>
+
+    <p class="support">
+      Still having trouble?
+      <a href="mailto:support@joingrooves.app">support@joingrooves.app</a>
+    </p>
 
     <a
       class="instagram"
@@ -208,10 +223,7 @@
       var errorCodeElement = document.getElementById("error-code");
       var errorCode = params.error_code || "";
       var hasError = Boolean(params.error || errorCode);
-      var hasSession = Boolean(hash.access_token && hash.refresh_token);
-      var verified = !hasError && Boolean(
-        (params.type === "signup" && hasSession) || query.code
-      );
+      var verified = !hasError && Boolean(params.access_token || query.code);
 
       function render(state, labelText, titleText, messageText, nextStepText) {
         page.setAttribute("data-state", state);
