@@ -287,6 +287,14 @@
           // The result is already visible, so URL cleanup is non-essential.
         }
       }
+
+      // Browsers can treat another verification URL opened in the same tab as
+      // a fragment-only navigation. Reload so the new Auth result is processed.
+      window.addEventListener("hashchange", function () {
+        if (window.location.hash) {
+          window.location.reload();
+        }
+      });
     }());
   </script>
 </body>
