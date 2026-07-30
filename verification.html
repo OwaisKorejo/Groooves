@@ -5,7 +5,7 @@
   <link rel="icon" type="image/png" href="./assets/images/icon.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grooves</title>
+  <title>Verify your email | Grooves</title>
   <style>
     html, body {
       height: 100%;
@@ -13,7 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow: auto;
       font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
       color: rgba(255, 255, 255, 0.87);
       background-color: #121212;
@@ -32,7 +32,7 @@
       src: url("assets/fonts/ok.otf") format("opentype");
     }
     #root {
-      max-width: 1280px;
+      max-width: 720px;
       margin: 0 auto;
       padding: 1rem;
       text-align: center;
@@ -48,7 +48,8 @@
     h1 {
       font-family: "EuropaBold";
       font-size: 60px;
-      margin-top: 20px;
+      line-height: 1.08;
+      margin: 20px 0 16px;
     }
     @media (max-width: 768px) {
       h1 { font-size: 40px; }
@@ -62,37 +63,16 @@
       font-size: 18px;
       margin: 0;
     }
-    .card {
-      padding: 32px 0 0 0;
-      margin-top: 20px;
+    .message {
+      max-width: 600px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.6;
     }
-    a.button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      border-radius: 50px;
-      padding: 20px 50px;
-      font-size: 16px;
-      font-family: "Buttoner";
-      background-color: #353535;
-      border: 1px solid #121212;
-      text-decoration: none;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.25s, background-color 0.25s;
-    }
-    a.button:hover {
-      transform: scale(1.05);
-      background-color: #5a5a5a;
-    }
-    .button svg.icon {
-      width: 26px;
-      height: 26px;
-      vertical-align: middle;
-      display: inline-block;
-      margin-right: 8px;
-      fill: white;
+    .status-code {
+      margin-top: 14px;
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 14px;
     }
     .social-icons {
       margin-top: 40px;
@@ -120,10 +100,6 @@
         color: rgba(255,255,255,0.87);
         background-color: #121212;
       }
-      .button {
-        background-color: #353535;
-        color: white;
-      }
       .social-icons a {
         background-color: #464646;
         color: white;
@@ -133,16 +109,82 @@
 </head>
 <body>
   <div id="root">
-    <img src="./assets/images/logo_no_background.png" class="logo" alt="Logo" />
-    <h1>your account is now verified.</h1>
+    <img src="./assets/images/logo_no_background.png" class="logo" alt="Grooves" />
+    <div id="verification-status" aria-live="polite">
+      <h1 id="status-title">checking your verification...</h1>
+      <p id="status-message" class="message">
+        Please wait while we check the result from your confirmation link.
+      </p>
+      <p id="status-code" class="status-code" hidden></p>
+    </div>
     <div class="social-icons">
-      <a href="https://www.instagram.com/grooves.app/" target="_blank" rel="noreferrer">
+      <a href="https://www.instagram.com/grooves.app/" target="_blank" rel="noreferrer" aria-label="Grooves on Instagram">
         <i class="fa-brands fa-instagram" style="color:white;"></i>
       </a>
-      <a href="https://www.tiktok.com/@grooovesapp" target="_blank" rel="noreferrer">
+      <a href="https://www.tiktok.com/@grooovesapp" target="_blank" rel="noreferrer" aria-label="Grooves on TikTok">
         <i class="fa-brands fa-tiktok" style="color:white;"></i>
       </a>
     </div>
   </div>
+  <script>
+    (() => {
+      const hashParams = new URLSearchParams(window.location.hash.slice(1));
+      const queryParams = new URLSearchParams(window.location.search);
+      const getParam = (name) =>
+        hashParams.get(name) || queryParams.get(name);
+
+      const title = document.getElementById("status-title");
+      const message = document.getElementById("status-message");
+      const statusCode = document.getElementById("status-code");
+
+      const error = getParam("error");
+      const errorCode = getParam("error_code");
+      const errorDescription = getParam("error_description");
+      const verificationType = getParam("type");
+      const hasImplicitSession =
+        hashParams.has("access_token") && hashParams.has("refresh_token");
+      const hasPkceCode = queryParams.has("code");
+      const verified =
+        !error &&
+        !errorCode &&
+        ((verificationType === "signup" && hasImplicitSession) || hasPkceCode);
+
+      if (verified) {
+        title.textContent = "your account is now verified.";
+        message.textContent =
+          "You can return to the Grooves app and log in.";
+      } else if (error || errorCode) {
+        if (errorCode === "otp_expired") {
+          title.textContent = "this verification link isn't valid anymore.";
+          message.textContent =
+            "It may have expired, already been used, or been replaced by a newer email. Return to the Grooves app and request a new verification email.";
+        } else if (errorCode === "over_request_rate_limit") {
+          title.textContent = "too many verification attempts.";
+          message.textContent =
+            "Wait a few minutes, then open the link in your latest verification email again.";
+        } else {
+          title.textContent = "we couldn't verify your email.";
+          message.textContent =
+            errorDescription ||
+            "Return to the Grooves app and request a new verification email.";
+        }
+
+        if (errorCode) {
+          statusCode.textContent = `Error: ${errorCode}`;
+          statusCode.hidden = false;
+        }
+      } else {
+        title.textContent = "we couldn't confirm your email.";
+        message.textContent =
+          "Open the latest verification email and tap its confirmation button. If that still doesn't work, request a new email from the Grooves app.";
+      }
+
+      // Successful redirects contain session credentials in the fragment.
+      // Remove all Auth parameters from browser history after reading them.
+      if (window.location.hash || window.location.search) {
+        window.history.replaceState(null, document.title, window.location.pathname);
+      }
+    })();
+  </script>
 </body>
 </html>
