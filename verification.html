@@ -50,6 +50,7 @@
       margin: 0;
       padding: 24px;
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       place-items: center;
       overflow-x: hidden;
       color: var(--cream);
@@ -85,11 +86,15 @@
     main {
       position: relative;
       z-index: 1;
-      width: min(100%, 680px);
+      width: 100%;
+      max-width: 680px;
+      min-width: 0;
     }
 
     .verification-card {
       position: relative;
+      width: 100%;
+      min-width: 0;
       overflow: hidden;
       padding: clamp(30px, 7vw, 58px);
       border: 1px solid var(--card-border);
@@ -179,6 +184,7 @@
       font-weight: 800;
       letter-spacing: -0.045em;
       line-height: 0.98;
+      overflow-wrap: anywhere;
     }
 
     .message {
@@ -187,6 +193,7 @@
       color: var(--cream-soft);
       font-size: clamp(15px, 2.6vw, 18px);
       line-height: 1.65;
+      overflow-wrap: anywhere;
     }
 
     .status-code {
@@ -230,9 +237,11 @@
     }
 
     .next-step p {
+      min-width: 0;
       margin: 0;
       font-size: 14px;
       line-height: 1.55;
+      overflow-wrap: anywhere;
     }
 
     .footer {
