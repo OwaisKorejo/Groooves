@@ -86,59 +86,15 @@
       line-height: 1.6;
     }
 
-    /* ─────────────  Ambient background  ───────────── */
+    /* ─────────────  Page background  ───────────── */
     .bg {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      overflow: hidden;
-    }
-    .bg .glow {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(70px);
-      opacity: 0.7;
-    }
-    .bg .glow-1 {
-      top: -22vh;
-      left: 50%;
-      width: min(90vw, 820px);
-      height: min(70vh, 640px);
-      transform: translateX(-50%);
-      background: radial-gradient(ellipse at center, rgba(167, 139, 250, 0.34), transparent 62%);
-      animation: float-a 16s ease-in-out infinite alternate;
-    }
-    .bg .glow-2 {
-      bottom: -18vh;
-      right: -10vw;
-      width: min(70vw, 560px);
-      height: min(60vh, 520px);
-      background: radial-gradient(ellipse at center, rgba(122, 92, 224, 0.24), transparent 64%);
-      animation: float-b 20s ease-in-out infinite alternate;
-    }
-    .bg .glow-3 {
-      bottom: -14vh;
-      left: -8vw;
-      width: min(60vw, 480px);
-      height: min(50vh, 440px);
-      background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.12), transparent 66%);
-      animation: float-a 22s ease-in-out infinite alternate-reverse;
-    }
-    .bg .grain {
-      position: absolute;
-      inset: 0;
-      opacity: 0.4;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-    }
-    @keyframes float-a {
-      from { transform: translate(-50%, 0) scale(1); }
-      to   { transform: translate(-46%, 5%) scale(1.12); }
-    }
-    @keyframes float-b {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(-6%, -6%) scale(1.15); }
+      background:
+        linear-gradient(rgba(18, 10, 25, 0.42), rgba(18, 10, 25, 0.68)),
+        url("./assets/images/verification-background.jpeg") center / cover no-repeat;
     }
 
     /* ─────────────  Layout  ───────────── */
@@ -420,18 +376,13 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, .anim, .stage img.active, .bg .glow { animation: none !important; transition: none !important; }
+      *, .anim, .stage img.active { animation: none !important; transition: none !important; }
       .anim { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
-    <div class="glow glow-3"></div>
-    <div class="grain"></div>
-  </div>
+  <div class="bg" aria-hidden="true"></div>
 
   <header id="hdr">
     <div class="wrap nav">
