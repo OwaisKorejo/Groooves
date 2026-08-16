@@ -296,6 +296,18 @@
 
   <script>
     (function () {
+      /* Instagram's in-app browser drops Apple's redirect to the App Store, so the
+         tap dies. This is Instagram's own hand-off to the system browser, which it
+         obeys. Only applied inside Instagram on iOS — the scheme is meaningless
+         anywhere else, so every other visitor keeps the plain link in the HTML. */
+      var ua = navigator.userAgent || '';
+      if (/Instagram/.test(ua) && /iPhone|iPad|iPod/.test(ua)) {
+        var store = document.querySelector('a[href^="https://apps.apple.com"]');
+        if (store) {
+          store.href = 'instagram://extbrowser/?url=' + encodeURIComponent(store.href);
+        }
+      }
+
       /* Screenshot crossfade. */
       var shots = document.getElementById('shots');
       if (!shots) return;
