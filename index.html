@@ -38,7 +38,6 @@
       --text:    #ffffff;
       --muted:   rgba(255, 255, 255, 0.58);
       --dim:     rgba(255, 255, 255, 0.40);
-      --accent:  #a78bfa;
       --font:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
@@ -58,22 +57,7 @@
       overflow-x: hidden;
     }
 
-    /* Soft purple glow behind the content. Decorative only. */
-    .glow {
-      position: fixed;
-      top: -18vh;
-      left: 50%;
-      width: min(1100px, 160vw);
-      height: min(1100px, 160vw);
-      transform: translateX(-50%);
-      background: radial-gradient(circle at center, rgba(167, 139, 250, 0.30), rgba(167, 139, 250, 0) 62%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
     main {
-      position: relative;
-      z-index: 1;
       max-width: 620px;
       margin: 0 auto;
       padding: clamp(52px, 12vw, 96px) 24px 0;
@@ -170,8 +154,6 @@
 
     /* ── Footer ── */
     footer {
-      position: relative;
-      z-index: 1;
       max-width: 620px;
       margin: 0 auto;
       padding: clamp(48px, 10vw, 72px) 24px 48px;
@@ -228,8 +210,6 @@
   </style>
 </head>
 <body>
-  <div class="glow" aria-hidden="true"></div>
-
   <main>
     <img class="icon" src="./assets/images/icon.png" alt="Grooves app icon" width="92" height="92" fetchpriority="high" />
 
