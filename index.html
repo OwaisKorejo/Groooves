@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#08070c" />
+  <meta name="theme-color" content="#191919" />
   <link rel="icon" type="image/png" href="./assets/images/icon.png" />
   <link rel="apple-touch-icon" href="./assets/images/icon.png" />
 
@@ -22,6 +22,10 @@
   <meta name="twitter:image" content="https://joingrooves.app/assets/images/icon.png" />
   <link rel="canonical" href="https://joingrooves.app/" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,11 +38,16 @@
 
   <style>
     :root {
-      --bg:      #08070c;
+      --bg:      #191919;
       --text:    #ffffff;
-      --muted:   rgba(255, 255, 255, 0.58);
-      --dim:     rgba(255, 255, 255, 0.40);
-      --font:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --muted:   rgba(255, 255, 255, 0.62);
+      --dim:     rgba(255, 255, 255, 0.42);
+      --hair:    rgba(255, 255, 255, 0.10);
+      --font:    "Stack Sans Text", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+      /* Carousel geometry — one place, used by the slides and the edge padding. */
+      --slide:   min(62vw, 268px);
+      --gap:     clamp(14px, 4vw, 24px);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -57,10 +66,12 @@
       overflow-x: hidden;
     }
 
-    main {
+    main { padding-top: clamp(52px, 12vw, 96px); }
+
+    .hero {
       max-width: 620px;
       margin: 0 auto;
-      padding: clamp(52px, 12vw, 96px) 24px 0;
+      padding: 0 24px;
       text-align: center;
     }
 
@@ -77,15 +88,17 @@
       line-height: 0;
     }
     h1 img {
-      width: clamp(200px, 58vw, 300px);
+      width: clamp(190px, 54vw, 280px);
       height: auto;
       display: inline-block;
     }
 
     .sub {
-      margin: 22px auto 0;
-      max-width: 26ch;
-      font-size: clamp(17px, 4.4vw, 20px);
+      margin: 20px auto 0;
+      max-width: 30ch;
+      font-size: clamp(15px, 3.9vw, 17px);
+      font-weight: 300;
+      letter-spacing: 0.005em;
       color: var(--muted);
     }
 
@@ -94,63 +107,140 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
-      margin-top: 34px;
+      gap: 12px;
+      max-width: 748px;
+      margin: 32px auto 0;
+      padding: 0 24px;
     }
 
     .btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
-      max-width: 340px;
-      min-height: 62px;
-      padding: 0 24px;
-      border-radius: 16px;
+      max-width: 360px;
+      min-height: 60px;
+      padding: 0 18px;
+      border-radius: 15px;
       background: #ffffff;
-      color: #08070c;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
+      color: #141414;
+      font-family: var(--font);
+      font-size: clamp(13.5px, 3.7vw, 16.5px);
+      font-weight: 700;
+      letter-spacing: -0.005em;
+      white-space: nowrap;
       text-decoration: none;
       cursor: pointer;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      transition: opacity 0.15s ease;
+      transition: opacity 0.15s ease, transform 0.15s ease;
     }
-    .btn svg { width: 24px; height: 24px; flex: 0 0 auto; }
-    .btn:active { opacity: 0.7; }
+    .btn svg { width: 22px; height: 22px; flex: 0 0 auto; }
+    .btn:active { opacity: 0.75; transform: scale(0.985); }
 
     /* Hover effects only where a real cursor exists, so a tap on a phone
        is never swallowed by an element that moved under the finger. */
     @media (hover: hover) and (pointer: fine) {
-      .btn:hover { opacity: 0.88; }
+      .btn:hover { opacity: 0.9; }
     }
 
-    .free {
-      margin: 20px 0 0;
-      font-size: 15px;
+    @media (min-width: 740px) {
+      .cta { flex-direction: row; justify-content: center; }
+      .btn { width: auto; max-width: none; }
+    }
+
+    /* iPhone SE and friends: buy back the last few pixels the label needs. */
+    @media (max-width: 350px) {
+      .hero { padding: 0 14px; }
+      .cta  { padding: 0 14px; }
+      .btn { font-size: 13px; padding: 0 13px; gap: 8px; }
+      .btn svg { width: 20px; height: 20px; }
+    }
+
+    /* ── Preview carousel ── */
+    .preview { margin-top: clamp(52px, 12vw, 88px); }
+
+    .eyebrow {
+      margin: 0 0 clamp(20px, 5vw, 28px);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 200;
+      letter-spacing: 0.46em;
+      text-indent: 0.46em; /* balance the trailing letter-space so it reads centred */
+      text-transform: uppercase;
       color: var(--dim);
     }
 
-    /* ── Screenshots ── */
-    .shots {
+    .rail {
       position: relative;
-      width: min(72vw, 280px);
-      margin: clamp(48px, 11vw, 80px) auto 0;
-      aspect-ratio: 1419 / 2796;
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+      /* overflow-y must be pinned: left alone the browser computes it to `auto`
+         alongside overflow-x, and the rail then eats the page's vertical scroll.
+         The bottom padding (cancelled by the margin) is headroom for the shadow,
+         which the hidden overflow would otherwise clip. */
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 6px 0 34px;
+      margin-bottom: -34px;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
     }
-    .shots img {
-      position: absolute;
-      inset: 0;
+    .rail::-webkit-scrollbar { display: none; }
+    .rail.grabbing { cursor: grabbing; scroll-snap-type: none; }
+    .rail:focus-visible { outline: none; }
+
+    /* Half-empty rails on each end so the first and last slide can sit centred. */
+    .rail::before,
+    .rail::after {
+      content: "";
+      flex: 0 0 max(0px, calc((100% - var(--slide)) / 2 - var(--gap)));
+    }
+
+    .slide {
+      flex: 0 0 var(--slide);
+      width: var(--slide);
+      margin: 0;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+    }
+    .slide img {
+      display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
+      aspect-ratio: 1419 / 2796;
       object-fit: contain;
-      opacity: 0;
-      transition: opacity 0.8s ease;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.5));
+      -webkit-user-drag: none;
+      user-select: none;
     }
-    .shots img.active { opacity: 1; }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: clamp(24px, 6vw, 34px);
+    }
+    .dots button {
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+    .dots button.on {
+      background: var(--text);
+      transform: scale(1.25);
+    }
 
     /* ── Footer ── */
     footer {
@@ -170,8 +260,9 @@
       color: var(--muted);
       display: inline-flex;
       -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s ease;
     }
-    .socials svg { width: 22px; height: 22px; }
+    .socials svg { width: 21px; height: 21px; }
 
     .links {
       display: flex;
@@ -184,6 +275,7 @@
       color: var(--muted);
       text-decoration: none;
       font-size: 14px;
+      font-weight: 400;
     }
     .contact {
       display: flex;
@@ -191,17 +283,20 @@
       justify-content: center;
       gap: 6px 22px;
       font-size: 14px;
+      font-weight: 300;
       color: var(--dim);
       margin-bottom: 22px;
     }
     .copy {
       font-size: 13px;
+      font-weight: 300;
       color: var(--dim);
       margin: 0;
     }
 
     @media (hover: hover) and (pointer: fine) {
       .socials a:hover, .links a:hover, .contact a:hover { color: var(--text); }
+      .dots button:hover { background: rgba(255, 255, 255, 0.55); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -211,11 +306,13 @@
 </head>
 <body>
   <main>
-    <img class="icon" src="./assets/images/icon.png" alt="Grooves app icon" width="92" height="92" fetchpriority="high" />
+    <div class="hero">
+      <img class="icon" src="./assets/images/icon.png" alt="Grooves app icon" width="92" height="92" fetchpriority="high" />
 
-    <h1><img src="./assets/images/logo_light.png" alt="Grooves" /></h1>
+      <h1><img src="./assets/images/logo_light.png" alt="Grooves" /></h1>
 
-    <p class="sub">Rate and review albums, track everything you listen to, and follow your friends.</p>
+      <p class="sub">Rate and review albums, track everything you listen to, and follow your friends.</p>
+    </div>
 
     <div class="cta" id="cta">
       <a class="btn" href="https://apps.apple.com/app/id6749868967">
@@ -230,25 +327,29 @@
           <path fill="#FF3A44" d="M361.3 333.2L280.7 252.6 43.6 489.7c8.8 9.3 23.3 10.5 39.7 1.2l278-157.7z"/>
           <path fill="#00E676" d="M361.3 171.9L83.3 14.3C66.9 5 52.4 6.2 43.6 15.5l237.1 237.1 80.6-80.7z"/>
         </svg>
-        Download on Google Play
+        Download on the Google Play Store
       </a>
     </div>
 
-    <p class="free">Free on iPhone and Android</p>
+    <section class="preview" aria-labelledby="preview-label">
+      <p class="eyebrow" id="preview-label">Preview</p>
 
-    <div class="shots" id="shots">
-      <img src="./assets/mockups/pic-2.png" class="active" alt="The Grooves home feed showing popular albums this week" />
-      <img src="./assets/mockups/pic-3.png" alt="An album page for The Dark Side of the Moon with ratings" loading="lazy" />
-      <img src="./assets/mockups/pic-1.png" alt="Rating and reviewing the album IGOR by Tyler, The Creator" loading="lazy" />
-      <img src="./assets/mockups/pic-5.png" alt="A friend's ranked list of Kanye West albums" loading="lazy" />
-      <img src="./assets/mockups/pic-4.png" alt="A personal grid of rated albums" loading="lazy" />
-    </div>
+      <div class="rail" id="rail" tabindex="0" role="group" aria-label="Screenshots of the Grooves app — scroll sideways">
+        <figure class="slide"><img src="./assets/mockups/pic-2.png" draggable="false" alt="The Grooves home feed showing popular albums this week" /></figure>
+        <figure class="slide"><img src="./assets/mockups/pic-3.png" draggable="false" alt="An album page for The Dark Side of the Moon with ratings" /></figure>
+        <figure class="slide"><img src="./assets/mockups/pic-1.png" draggable="false" loading="lazy" alt="Rating and reviewing the album IGOR by Tyler, The Creator" /></figure>
+        <figure class="slide"><img src="./assets/mockups/pic-5.png" draggable="false" loading="lazy" alt="A friend's ranked list of Kanye West albums" /></figure>
+        <figure class="slide"><img src="./assets/mockups/pic-4.png" draggable="false" loading="lazy" alt="A personal grid of rated albums" /></figure>
+      </div>
+
+      <div class="dots" id="dots"></div>
+    </section>
   </main>
 
   <footer>
     <div class="socials">
       <a href="https://www.instagram.com/groooves.app/" rel="noopener" aria-label="Grooves on Instagram">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.8 3.8 0 0 1-1.38-.9c-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 2.16c-3.14 0-3.51.01-4.75.07-1.15.05-1.77.24-2.18.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.18-.06 1.24-.07 1.61-.07 4.75s.01 3.51.07 4.75c.05 1.15.24 1.77.4 2.18.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.18.4 1.24.06 1.61.07 4.75.07s3.51-.01 4.75-.07c1.15-.05 1.77-.24 2.18-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.18.06-1.24.07-1.61.07-4.75s-.01-3.51-.07-4.75c-.05-1.15-.24-1.77-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.18-.4-1.24-.06-1.61-.07-4.75-.07zm0 3.68a5.99 5.99 0 1 1 0 11.98 5.99 5.99 0 0 1 0-11.98zm0 9.88a3.89 3.89 0 1 0 0-7.78 3.89 3.89 0 0 0 0 7.78zm7.63-10.12a1.4 1.4 0 1 1-2.8 0 1.4 1.4 0 0 1 2.8 0z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>
       </a>
       <a href="https://www.tiktok.com/@grooovesapp" rel="noopener" aria-label="Grooves on TikTok">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.27 0 .53.04.78.12V9.74a5.7 5.7 0 0 0-.78-.06 5.72 5.72 0 1 0 5.72 5.72V9.01a7.35 7.35 0 0 0 4.3 1.38V7.29a4.29 4.29 0 0 1-3.26-1.47z"/></svg>
@@ -288,19 +389,76 @@
         }
       }
 
-      /* Screenshot crossfade. */
-      var shots = document.getElementById('shots');
-      if (!shots) return;
-      var slides = Array.prototype.slice.call(shots.querySelectorAll('img'));
+      /* Screenshot rail: swipe on touch, drag or click a dot on desktop. */
+      var rail = document.getElementById('rail');
+      var dotsBox = document.getElementById('dots');
+      if (!rail || !dotsBox) return;
+
+      var slides = Array.prototype.slice.call(rail.querySelectorAll('.slide'));
       if (slides.length < 2) return;
 
-      var i = 0;
-      setInterval(function () {
-        if (document.hidden) return;
-        slides[i].classList.remove('active');
-        i = (i + 1) % slides.length;
-        slides[i].classList.add('active');
-      }, 3400);
+      function centre(slide) {
+        var target = slide.offsetLeft - (rail.clientWidth - slide.offsetWidth) / 2;
+        var from = rail.scrollLeft;
+        rail.scrollTo({ left: target, behavior: 'smooth' });
+        /* Some setups ignore smooth scrolling outright and the call is a no-op.
+           A real animation is always under way a few frames in, so if nothing has
+           budged by then, jump straight there rather than leave the dot lying. */
+        setTimeout(function () {
+          if (Math.abs(rail.scrollLeft - from) < 1) rail.scrollLeft = target;
+        }, 120);
+      }
+
+      slides.forEach(function (slide, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = i === 0 ? 'on' : '';
+        dot.setAttribute('aria-label', 'Show screenshot ' + (i + 1) + ' of ' + slides.length);
+        dot.addEventListener('click', function () { centre(slide); });
+        dotsBox.appendChild(dot);
+      });
+      var dots = Array.prototype.slice.call(dotsBox.children);
+
+      var queued = false;
+      function markCurrent() {
+        queued = false;
+        var middle = rail.scrollLeft + rail.clientWidth / 2;
+        var current = 0;
+        var closest = Infinity;
+        slides.forEach(function (slide, i) {
+          var d = Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - middle);
+          if (d < closest) { closest = d; current = i; }
+        });
+        dots.forEach(function (dot, i) { dot.classList.toggle('on', i === current); });
+      }
+      rail.addEventListener('scroll', function () {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(markCurrent);
+      }, { passive: true });
+      window.addEventListener('resize', markCurrent);
+
+      /* Click-and-drag, so a mouse without a horizontal wheel can still browse.
+         Snapping is switched off mid-drag, then restored so the release settles
+         onto a slide. */
+      var dragging = false, originX = 0, originScroll = 0;
+      rail.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        dragging = true;
+        originX = e.clientX;
+        originScroll = rail.scrollLeft;
+        rail.classList.add('grabbing');
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        e.preventDefault();
+        rail.scrollLeft = originScroll - (e.clientX - originX);
+      });
+      window.addEventListener('pointerup', function () {
+        if (!dragging) return;
+        dragging = false;
+        rail.classList.remove('grabbing');
+      });
     })();
   </script>
 </body>
