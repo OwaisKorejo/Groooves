@@ -43,6 +43,8 @@
       --muted:   rgba(255, 255, 255, 0.62);
       --dim:     rgba(255, 255, 255, 0.42);
       --hair:    rgba(255, 255, 255, 0.10);
+      --surface: #e6e6e3;
+      --ink:     #1b1b1b;
       --font:    "Stack Sans Text", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
       /* Carousel geometry — one place, used by the slides and the edge padding. */
@@ -57,7 +59,11 @@
     body {
       margin: 0;
       min-height: 100dvh;
-      background: var(--bg);
+      /* A tiling speck texture over the flat grey, so the background has a
+         little tooth instead of reading as one dead block of colour. */
+      background-color: var(--bg);
+      background-image: url("./assets/images/grain.png");
+      background-repeat: repeat;
       color: var(--text);
       font-family: var(--font);
       line-height: 1.5;
@@ -108,7 +114,7 @@
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      max-width: 748px;
+      max-width: 560px;
       margin: 32px auto 0;
       padding: 0 24px;
     }
@@ -117,16 +123,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 9px;
       width: 100%;
-      max-width: 360px;
-      min-height: 60px;
-      padding: 0 18px;
-      border-radius: 15px;
-      background: #ffffff;
-      color: #141414;
+      max-width: 240px;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 13px;
+      background: var(--surface);
+      color: var(--ink);
       font-family: var(--font);
-      font-size: clamp(13.5px, 3.7vw, 16.5px);
+      font-size: clamp(14px, 3.7vw, 15.5px);
       font-weight: 700;
       letter-spacing: -0.005em;
       white-space: nowrap;
@@ -136,7 +142,7 @@
       -webkit-tap-highlight-color: transparent;
       transition: opacity 0.15s ease, transform 0.15s ease;
     }
-    .btn svg { width: 22px; height: 22px; flex: 0 0 auto; }
+    .btn svg { width: 19px; height: 19px; flex: 0 0 auto; }
     .btn:active { opacity: 0.75; transform: scale(0.985); }
 
     /* Hover effects only where a real cursor exists, so a tap on a phone
@@ -145,17 +151,11 @@
       .btn:hover { opacity: 0.9; }
     }
 
-    @media (min-width: 740px) {
+    /* Side by side once both fit at a matched width — an uneven pair of
+       store buttons reads as a mistake. */
+    @media (min-width: 560px) {
       .cta { flex-direction: row; justify-content: center; }
-      .btn { width: auto; max-width: none; }
-    }
-
-    /* iPhone SE and friends: buy back the last few pixels the label needs. */
-    @media (max-width: 350px) {
-      .hero { padding: 0 14px; }
-      .cta  { padding: 0 14px; }
-      .btn { font-size: 13px; padding: 0 13px; gap: 8px; }
-      .btn svg { width: 20px; height: 20px; }
+      .btn { width: 240px; max-width: none; }
     }
 
     /* ── Preview carousel ── */
@@ -317,7 +317,7 @@
     <div class="cta" id="cta">
       <a class="btn" href="https://apps.apple.com/app/id6749868967">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.61-1.7-3.18-1.72-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.87-.76-1.48.02-2.84.86-3.6 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.25 2.74 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.18-.02 1.93-1.08 2.65-2.14.84-1.23 1.18-2.42 1.2-2.48-.03-.01-2.29-.88-2.31-3.51zM14.9 5.6c.6-.74 1.01-1.76.9-2.78-.87.04-1.93.58-2.56 1.31-.56.65-1.05 1.69-.92 2.69.97.07 1.97-.49 2.58-1.22z"/></svg>
-        Download on the App Store
+        Download on iOS
       </a>
 
       <a class="btn" href="https://play.google.com/store/apps/details?id=com.owaiskorejo.Grooves">
@@ -327,7 +327,7 @@
           <path fill="#FF3A44" d="M361.3 333.2L280.7 252.6 43.6 489.7c8.8 9.3 23.3 10.5 39.7 1.2l278-157.7z"/>
           <path fill="#00E676" d="M361.3 171.9L83.3 14.3C66.9 5 52.4 6.2 43.6 15.5l237.1 237.1 80.6-80.7z"/>
         </svg>
-        Download on the Google Play Store
+        Download on Android
       </a>
     </div>
 
